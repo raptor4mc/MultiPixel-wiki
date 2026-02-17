@@ -1,6 +1,8 @@
 const wiki = document.getElementById("wiki");
 const nav = document.getElementById("nav");
 const searchInput = document.getElementById("search");
+const sidebar = document.getElementById("sidebar");
+const toggleBtn = document.getElementById("toggleBtn");
 
 let pages = [];
 
@@ -39,17 +41,22 @@ async function loadPage(page) {
     const text = await res.text();
     wiki.innerHTML = marked.parse(text);
 
-    interceptInternalLinks();
+    interceptLinks();
     highlightActive();
+
+    // Auto close sidebar on mobile after clicking
+    if (window.innerWidth < 900) {
+      sidebar.classList.add("collapsed");
+    }
+
   } catch {
     wiki.innerHTML = "<h1>404</h1><p>Page not found.</p>";
   }
 }
 
-function interceptInternalLinks() {
+function interceptLinks() {
   document.querySelectorAll(".content a").forEach(link => {
     const href = link.getAttribute("href");
-
     if (!href.startsWith("http")) {
       link.onclick = (e) => {
         e.preventDefault();
@@ -61,7 +68,6 @@ function interceptInternalLinks() {
 
 function highlightActive() {
   const current = location.hash.substring(1) || "home";
-
   document.querySelectorAll("#nav a").forEach(link => {
     link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
   });
@@ -73,6 +79,10 @@ window.addEventListener("hashchange", () => {
 
 searchInput.addEventListener("input", (e) => {
   buildSidebar(e.target.value);
+});
+
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("collapsed");
 });
 
 init();
