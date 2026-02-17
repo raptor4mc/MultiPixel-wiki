@@ -1,0 +1,25 @@
+body {
+  background: #0f0f0f;
+  color: #8ab4ff;
+  font-family: monospace;
+  padding: 40px;
+  font-size: 18px;
+}
+
+a {
+  color: #8ab4ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:hover {
+  color: white;
+}
+
+h1, h2, h3 {
+  color: #ffffff;
+}
+
+#wiki {
+  max-width: 900px;
+}
