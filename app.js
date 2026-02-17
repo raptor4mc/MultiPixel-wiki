@@ -44,11 +44,6 @@ async function loadPage(page) {
     interceptLinks();
     highlightActive();
 
-    // Auto close sidebar on mobile after clicking
-    if (window.innerWidth < 900) {
-      sidebar.classList.add("collapsed");
-    }
-
   } catch {
     wiki.innerHTML = "<h1>404</h1><p>Page not found.</p>";
   }
@@ -57,6 +52,7 @@ async function loadPage(page) {
 function interceptLinks() {
   document.querySelectorAll(".content a").forEach(link => {
     const href = link.getAttribute("href");
+
     if (!href.startsWith("http")) {
       link.onclick = (e) => {
         e.preventDefault();
@@ -68,8 +64,12 @@ function interceptLinks() {
 
 function highlightActive() {
   const current = location.hash.substring(1) || "home";
+
   document.querySelectorAll("#nav a").forEach(link => {
-    link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+    link.classList.toggle(
+      "active",
+      link.getAttribute("href") === `#${current}`
+    );
   });
 }
 
