@@ -5,6 +5,7 @@ const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("toggleBtn");
 
 let pages = [];
+let isCollapsed = false;
 
 async function init() {
   const res = await fetch("pages.json");
@@ -43,7 +44,6 @@ async function loadPage(page) {
 
     interceptLinks();
     highlightActive();
-
   } catch {
     wiki.innerHTML = "<h1>404</h1><p>Page not found.</p>";
   }
@@ -52,7 +52,6 @@ async function loadPage(page) {
 function interceptLinks() {
   document.querySelectorAll(".content a").forEach(link => {
     const href = link.getAttribute("href");
-
     if (!href.startsWith("http")) {
       link.onclick = (e) => {
         e.preventDefault();
@@ -73,16 +72,21 @@ function highlightActive() {
   });
 }
 
+// TOGGLE SIDEBAR WITH IMAGE SWITCH
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("collapsed");
+  isCollapsed = !isCollapsed;
+
+  // Change image to door open/close
+  toggleBtn.src = isCollapsed ? "assets/sidebar2.png" : "assets/sidebar.png";
+});
+
 window.addEventListener("hashchange", () => {
   loadPage(location.hash.substring(1));
 });
 
 searchInput.addEventListener("input", (e) => {
   buildSidebar(e.target.value);
-});
-
-toggleBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("collapsed");
 });
 
 init();
