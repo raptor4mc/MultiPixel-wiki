@@ -17,6 +17,7 @@ body {
 
 /* GLASS CONTAINER */
 .glass-container {
+  position: relative;
   width: 95%;
   height: 92vh;
   display: flex;
@@ -27,52 +28,47 @@ body {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 18px;
-
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  overflow: hidden;
 
-  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* FLOATING TOGGLE BUTTON */
+.floating-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+
+.floating-toggle:hover {
+  transform: scale(1.1);
 }
 
 /* SIDEBAR */
 .sidebar {
   width: 260px;
-  padding: 20px;
+  padding: 70px 20px 20px 20px;
 
   background: rgba(255,255,255,0.15);
   border-right: 1px solid rgba(255,255,255,0.2);
 
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease, transform 0.3s ease;
+
+  transition: transform 0.3s ease;
 }
 
+/* SLIDE OUT */
 .sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  overflow: hidden;
+  transform: translateX(-100%);
 }
 
-/* Sidebar Header */
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.toggle-btn {
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  margin-right: 12px;
-}
-
-.logo {
-  font-weight: 600;
-  color: white;
-}
-
-/* Search */
+/* SEARCH */
 #search {
   padding: 8px;
   margin-bottom: 15px;
@@ -81,7 +77,7 @@ body {
   outline: none;
 }
 
-/* Nav Links */
+/* NAV */
 #nav a {
   display: block;
   padding: 8px 10px;
@@ -103,10 +99,10 @@ body {
 /* CONTENT */
 .content {
   flex: 1;
-  padding: 40px;
+  padding: 70px 40px 40px 40px;
   overflow-y: auto;
   color: white;
-  transition: all 0.3s ease;
+  transition: margin-left 0.3s ease;
 }
 
 .content h1,
@@ -125,7 +121,7 @@ body {
   text-decoration: underline;
 }
 
-/* MOBILE MODE */
+/* MOBILE */
 @media (max-width: 900px) {
 
   body {
@@ -141,15 +137,7 @@ body {
   .sidebar {
     position: absolute;
     height: 100%;
-    z-index: 10;
+    z-index: 999;
   }
 
-  .sidebar.collapsed {
-    transform: translateX(-100%);
-    width: 260px;
-  }
-
-  .content {
-    padding: 20px;
-  }
 }
