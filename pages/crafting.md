@@ -1,0 +1,4 @@
+- well, heres kind of empty, why? the crafting recipes change.... 
+- so well..
+- the versions will sit here and the current crafting recipes will be in the versions :D
+- 
